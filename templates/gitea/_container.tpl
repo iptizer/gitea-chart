@@ -19,7 +19,8 @@ Create helm partial for gitea server
   ports:
   - name: ssh
     containerPort: 22
-  - name: http
+{{ if .Values.service.ssh.useHostPort }}    hostPort: {{ .Values.service.ssh.externalPort }}
+{{ end }}  - name: http
     containerPort: 3000
   livenessProbe:
     tcpSocket:

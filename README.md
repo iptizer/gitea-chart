@@ -114,6 +114,20 @@ ingress:
 
 To expose the web application this chart will generate an ingress using the ingress controller of choice if specified. If an ingress is enabled services.http.externalHost must be specified. To expose SSH services it relies on either a LoadBalancer or NodePort.
 
+## hostPort
+
+For bare metal or when no LoadBalancer is available, it may be useful to bind the ssh port of the gitea pod directly to the host port.
+
+**Warnings:
+
+* Consider using hostPort carefully! The A record has to point to the Node on which gitea is deployed.**
+
+```yml
+service:
+  ssh:
+    useHostPort: true
+```
+
 ## Upgrading
 
 When upgrading, make sure you have the following enabled:
@@ -153,6 +167,7 @@ The following table lists the configurable parameters of this chart and their de
 | `service.ssh.NodePort`                | Manual NodePort for ssh traffic                                                                                              | `nil`                     |
 | `service.ssh.externalPort`            | Port exposed on the internet by a load balancer or firewall that redirects to the ingress or NodePort                        | `nil`                     |
 | `service.ssh.externalHost`            | IP or DNS name exposed on the internet by a load balancer or firewall that redirects to the ingress or Node for http traffic | `gitea.local`             |
+| `service.ssh.useHostPort`             | The port specified in externalPort will be used as port on the node where the pod is deployed                                | `false`                   |
 | `resources.gitea.requests.memory`     | gitea container memory request                                                                                               | `500Mi`                   |
 | `resources.gitea.requests.cpu`        | gitea container request cpu                                                                                                  | `1000m`                   |
 | `resources.gitea.limits.memory`       | gitea container memory limits                                                                                                | `2Gi`                     |

@@ -97,6 +97,8 @@ service:
     externalPort: 8022
     externalHost: gitea.local
     externalIPs: []
+    # Option will bind the ssh port of the pod directly to the node.
+    useHostPort: false
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
