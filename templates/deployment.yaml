@@ -18,6 +18,7 @@ spec:
       labels:
         app: {{ template "fullname" . }}
     spec:
+      hostNetwork: true
       containers:
       {{ include "gitea" . | indent 6 }}
       {{ include "memcached" . | indent 6 }}
